@@ -6,12 +6,12 @@
     /_/  |_/_/\___/_/ /_/\___/_/ /_/ /_/\__, /  
                                        /____/   
     
-    Codename for the csoptic.com rewrite
+    Codename for the CsOptic.com rewrite
 */
 
 'use strict'
 
-var config = require('./src/config');
+var config = require('./config');
 
 // Modules that are only used in production
 var httpHandler, helmet;
@@ -30,6 +30,7 @@ var morgan = require('morgan');
 
 // Router in separate file
 var apiroutes = require('./src/apiroutes');
+var userroutes = require('./src/userroutes');
 
 // Server setting
 var port = process.env.PORT || config.productionMode ? config.portProductionMode : config.portDevelMode;
@@ -43,9 +44,8 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
 // Configure routes
-server.use('/api/', apiroutes);
-//server.use("/user", require('./userroutes'));  //csoptic.com/user/...
-//server.use("/admin", require('./adminroutes')); ///csoptic.com/admin/...
+server.use('/api/', apiroutes);     // csoptic.com/api/...
+server.use("/user", userroutes);    // csoptic.com/user/...
 
 // Public directory for index.html
 server.use(express.static(__dirname + '/public'));

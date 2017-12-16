@@ -5,15 +5,9 @@ var router = express.Router();
 
 // Middleware that is specific to this router
 router.use(function timeLog(req, res, next) {
-	console.log('Time: ', Date.now());
+	console.log('[!] APIroutes accessed at time: ', Date.now());
 	next();
 });
-
-// Define the base api route (www.csoptic.com/api/)
-router.get('/', function(req, res) {
-	res.send('www.csoptic.com/api/');
-});
-
 
 router.route('/coinflips')
 
@@ -43,8 +37,8 @@ router.route('/coinflips/:coinflip_id')
 	/*
 		Defines the GET coinflips api route (GET www.csoptic.com/api/coinflips/coinflip_id)
 		------------------------------------------------------------------------
-		Authentication: none
-		Returns: (tentative) json object with the details of the coinflip
+		Authentication: None
+		Returns: (tentative) Json object with the details of the coinflip
 	*/
 	.get(function(req, res) {
 		res.json({ message: 'GET www.csoptic.com/api/coinflips/' + req.params.coinflip_id + ' : Gets coinflip #' + req.params.coinflip_id + ' if it exists'});
@@ -55,7 +49,7 @@ router.route('/coinflips/:coinflip_id')
 		------------------------------------------------------------------------
 		Authentication: User level. To use, coinflip_id must be the user's coinflip, else return "not allowed"
 		Updates: coinflip_id with passed in info
-		Returns: success or failure message
+		Returns: Success or failure message
 	*/
 	.put(function(req, res) {
 		res.json({ message: 'PUT www.csoptic.com/api/coinflips/' + req.params.coinflip_id + ' : Updates coinflip #' + req.params.coinflip_id + ' if it exists'});
@@ -65,8 +59,8 @@ router.route('/coinflips/:coinflip_id')
 		Defines the DELETE coinflips api route (DELETE www.csoptic.com/api/coinflips/coinflip_id)
 		------------------------------------------------------------------------
 		Authentication: User level. To use, coinflip_id must be the user's coinflip, else return "not allowed"
-		Deletes: coinflip_id if it exists
-		Returns: success or failure message
+		Deletes: Coinflip #coinflip_id if it exists
+		Returns: Success or failure message
 	*/
 	.delete(function(req, res) {
 		res.json({ message: 'DELETE www.csoptic.com/api/coinflips/' + req.params.coinflip_id + ' : Deletes coinflip #' + req.params.coinflip_id + ' if it exists'});

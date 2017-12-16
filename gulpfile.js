@@ -50,9 +50,9 @@ gulp.task('copyjQueryJS', function(){
       .pipe(gulp.dest('public/js/'));
 })
 
-// Copy Mustache js
-gulp.task('copyMustacheJS', function(){
-  gulp.src('node_modules/mustache/mustache.min.js')
+// Copy Handlebars js
+gulp.task('copyHandlebarsJS', function(){
+  gulp.src('node_modules/handlebars/dist/handlebars.min.js')
       .pipe(gulp.dest('public/js/'));
 })
 
@@ -84,7 +84,7 @@ gulp.task('scripts', function(){
       .pipe(gulp.dest('public/js'));
 });
 
-gulp.task('default', ['copyHtml', 'copyIcons', 'copyIoniconFonts', 'copyBootstrapJS', 'copyBootstrapFonts', 'copyjQueryJS', 'copyMustacheJS', 'imageMin', 'sass', 'scripts']);
+gulp.task('default', ['copyHtml', 'copyIcons', 'copyIoniconFonts', 'copyBootstrapJS', 'copyBootstrapFonts', 'copyjQueryJS', 'copyHandlebarsJS', 'imageMin', 'sass', 'scripts']);
 
 gulp.task('watch', function(){
   gulp.watch('src/js/*.js', ['scripts']);
@@ -92,7 +92,7 @@ gulp.task('watch', function(){
   gulp.watch('src/sass/*.scss', ['sass']);
   gulp.watch('src/*.html', ['copyHtml']);
   gulp.watch('node_modules/ionicons/dist/*', ['copyIcons', 'copyIoniconFonts']);
-  gulp.watch('node_modules/mustache/*', ['copyMustacheJS']);
+  gulp.watch('node_modules/handlebars/*', ['copyHandlebarsJS']);
   gulp.watch('node_modules/bootstrap-sass/assets/*', ['copyBootstrapJS', 'copyBootstrapFonts']);
   gulp.watch('node_modules/jquery/dist/*', ['copyjQueryJS']);
 });
