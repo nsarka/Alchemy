@@ -1,5 +1,7 @@
 ## Alchemy => CsOptic.com Rewrite
 
+To achieve better scalability and code correctness, rewriting the CsOptic.com website was the best option. This time we're changing what we use to make everything more organized i.e. sass for css and gulp for automating some tasks.
+
 # Install
 1. git clone git@github.com:nsarka/Alchemy.git
 2. cd Alchemy
