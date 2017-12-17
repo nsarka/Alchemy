@@ -24,6 +24,7 @@ if(config.productionMode) {
 }
 
 var express = require('express');
+var hbs = require('express-handlebars');
 var server = express();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
@@ -34,6 +35,11 @@ var userroutes = require('./src/userroutes');
 
 // Server setting
 var port = process.env.PORT || config.productionMode ? config.portProductionMode : config.portDevelMode;
+
+// View engine
+server.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layouts'}));
+server.set('views', path.join(__dirname + 'views'));
+server.set('view engine', 'hbs');
 
 // Register body-parser, morgan, and other middleware
 if(config.productionMode) {

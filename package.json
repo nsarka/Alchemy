@@ -12,6 +12,7 @@
     "body-parser": "^1.18.2",
     "bootstrap-sass": "^3.3.7",
     "express": "^4.16.1",
+    "express-handlebars": "^3.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-imagemin": "^4.0.0",
     "gulp-uglify": "^3.0.0",
