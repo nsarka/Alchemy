@@ -28,17 +28,19 @@ var hbs = require('express-handlebars');
 var server = express();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
+var path = require('path');
 
 // Router in separate file
 var apiroutes = require('./src/apiroutes');
 var userroutes = require('./src/userroutes');
+var indexroutes = require('./src/indexroutes');
 
 // Server setting
 var port = process.env.PORT || config.productionMode ? config.portProductionMode : config.portDevelMode;
 
 // View engine
-server.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layouts'}));
-server.set('views', path.join(__dirname + 'views'));
+server.set('views', path.join(__dirname + '/src/views'));
+server.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/src/views/layouts'}));
 server.set('view engine', 'hbs');
 
 // Register body-parser, morgan, and other middleware
@@ -50,6 +52,7 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
 // Configure routes
+server.use('/', indexroutes);     // csoptic.com/...
 server.use('/api/', apiroutes);     // csoptic.com/api/...
 server.use("/user", userroutes);    // csoptic.com/user/...
 
