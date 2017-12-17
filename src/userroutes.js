@@ -29,7 +29,7 @@ router.route('/user')
 		Returns: Success or error message
 	*/
 	.post(function(req, res) {
-		res.json({ message: 'POST www.csoptic.com/api/coinflips : Creates a new user record in the database' });
+		res.json({ message: 'POST www.csoptic.com/user : Creates a new user record in the database' });
 	})
 
 	/*
@@ -40,7 +40,7 @@ router.route('/user')
 		Returns: Success or error message
 	*/
 	.put(function(req, res) {
-		res.json({ message: 'POST www.csoptic.com/api/user : Updates your user info' });
+		res.json({ message: 'POST www.csoptic.com/user : Updates your user info' });
 	})
 
 
