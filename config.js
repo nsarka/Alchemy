@@ -11,6 +11,14 @@ module.exports = {
 	portProductionMode: 443,
 	portDevelMode: 80,
 
+	// Link to database
+	dbLink: 'mongodb://localhost/csoptic',
+	dbUseAuth: false,
+	dbAuth: {
+		user: '',
+		pass: ''
+	},
+
 	// SSL certificate
 	sslOptions: {
 		cert: this.productionMode ? fs.readFileSync('/etc/letsencrypt/live/www.csoptic.com/fullchain.pem') : '',

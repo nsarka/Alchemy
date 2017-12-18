@@ -4,12 +4,13 @@ var express = require('express');
 var router = express.Router();
 
 // Middleware that is specific to this router
-router.use(function timeLog(req, res, next) {
-	console.log('[!] Userroutes accessed at time: ', Date.now());
+router.use('/', function timeLog(req, res, next) {
+	console.log('[*] User Router accessed at time: ', Date.now());
 	next();
 });
 
-router.route('/user')
+// csoptic.com/user/
+router.route('/')
 
 	/*
 		Defines the GET user route (GET www.csoptic.com/user)
@@ -40,8 +41,8 @@ router.route('/user')
 		Returns: Success or error message
 	*/
 	.put(function(req, res) {
-		res.json({ message: 'POST www.csoptic.com/user : Updates your user info' });
-	})
+		res.json({ message: 'PUT www.csoptic.com/user : Updates your user info' });
+	});
 
 
 module.exports = router;

@@ -4,12 +4,13 @@ var express = require('express');
 var router = express.Router();
 
 // Middleware that is specific to this router
-router.use(function timeLog(req, res, next) {
-	console.log('[!] APIroutes accessed at time: ', Date.now());
+router.use('/', function timeLog(req, res, next) {
+	console.log('[*] Coinflips Router accessed at time: ', Date.now());
 	next();
 });
 
-router.route('/coinflips')
+// csoptic.com/api/coinflips/
+router.route('/')
 
 	/*
 		Defines the GET coinflips api route (GET www.csoptic.com/api/coinflips)
@@ -30,9 +31,10 @@ router.route('/coinflips')
 	*/
 	.post(function(req, res) {
 		res.json({ message: 'POST www.csoptic.com/api/coinflips : Creates a coinflip' });
-	})
+	});
 
-router.route('/coinflips/:coinflip_id')
+// csoptic.com/api/coinflips/123456
+router.route('/:coinflip_id')
 
 	/*
 		Defines the GET coinflips api route (GET www.csoptic.com/api/coinflips/coinflip_id)
@@ -64,6 +66,7 @@ router.route('/coinflips/:coinflip_id')
 	*/
 	.delete(function(req, res) {
 		res.json({ message: 'DELETE www.csoptic.com/api/coinflips/' + req.params.coinflip_id + ' : Deletes coinflip #' + req.params.coinflip_id + ' if it exists'});
-	})
+	});
+
 
 module.exports = router;

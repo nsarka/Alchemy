@@ -6,7 +6,7 @@
     /_/  |_/_/\___/_/ /_/\___/_/ /_/ /_/\__, /  
                                        /____/   
     
-    Codename for the CsOptic.com rewrite
+    www.CsOptic.com
 */
 
 'use strict'
@@ -23,22 +23,32 @@ if(config.productionMode) {
     httpHandler = require('http');
 }
 
+// Everything else
 var express = require('express');
 var hbs = require('express-handlebars');
 var server = express();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var path = require('path');
+var mongoose = require('mongoose');
 
-// Router in separate file
-var apiroutes = require('./src/apiroutes');
-var userroutes = require('./src/userroutes');
-var indexroutes = require('./src/indexroutes');
+// Routers in separate files
+var indexRouter = require('./src/routes/indexRouter');
+var coinflipsRouter = require('./src/routes/coinflipsRouter');
+var userRouter = require('./src/routes/userRouter');
 
-// Server setting
+// Server settings grabbed from config
 var port = process.env.PORT || config.productionMode ? config.portProductionMode : config.portDevelMode;
 
-// View engine
+// Connect to database
+config.dbUseAuth ? mongoose.connect(config.dbLink, config.dbAuth) : mongoose.connect(config.dbLink);
+var dB = mongoose.connection;
+dB.on('error', console.error.bind(console, 'Connection Error:'));
+dB.once('open', function() {
+    console.log('[!] Connected to database');
+});
+
+// Set up Handlebars
 server.set('views', path.join(__dirname + '/src/views'));
 server.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/src/views/layouts'}));
 server.set('view engine', 'hbs');
@@ -51,12 +61,12 @@ server.use(morgan(config.productionMode ? 'short' : 'dev'));
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
-// Configure routes
-server.use('/', indexroutes);     // csoptic.com/...
-server.use('/api/', apiroutes);     // csoptic.com/api/...
-server.use("/user", userroutes);    // csoptic.com/user/...
+// Set server to use routes
+server.use('/', indexRouter);
+server.use('/api/coinflips', coinflipsRouter);
+server.use('/user', userRouter);
 
-// Public directory for index.html
+// Public directory for site resources, e.g. style.css
 server.use(express.static(__dirname + '/public'));
 
 // Create http(s) server & run

@@ -13,18 +13,19 @@
     "bootstrap-sass": "^3.3.7",
     "express": "^4.16.1",
     "express-handlebars": "^3.0.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-imagemin": "^4.0.0",
-    "gulp-uglify": "^3.0.0",
     "handlebars": "^4.0.11",
     "helmet": "^3.8.2",
     "ionicons": "^3.0.0",
     "jquery": "^3.2.1",
+    "mongoose": "^4.13.7",
     "morgan": "^1.9.0",
     "sass": "^1.0.0-beta.4"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-sass": "^3.1.0"
+    "gulp-sass": "^3.1.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^4.0.0",
+    "gulp-uglify": "^3.0.0"
   }
 }
