@@ -30,7 +30,7 @@ var server = express();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var path = require('path');
-var mongoose = require('mongoose');
+var pg = require('pg');
 
 // Routers in separate files
 var indexRouter = require('./src/routes/indexRouter');
@@ -41,12 +41,7 @@ var userRouter = require('./src/routes/userRouter');
 var port = process.env.PORT || config.productionMode ? config.portProductionMode : config.portDevelMode;
 
 // Connect to database
-config.dbUseAuth ? mongoose.connect(config.dbLink, config.dbAuth) : mongoose.connect(config.dbLink);
-var dB = mongoose.connection;
-dB.on('error', console.error.bind(console, 'Connection Error:'));
-dB.once('open', function() {
-    console.log('[!] Connected to database');
-});
+
 
 // Set up Handlebars
 server.set('views', path.join(__dirname + '/src/views'));
@@ -62,9 +57,9 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
 // Set server to use routes
-server.use('/', indexRouter);
 server.use('/api/coinflips', coinflipsRouter);
 server.use('/user', userRouter);
+server.use('/', indexRouter);
 
 // Public directory for site resources, e.g. style.css
 server.use(express.static(__dirname + '/public'));
