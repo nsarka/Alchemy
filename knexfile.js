@@ -1,14 +1,19 @@
-// Update with your config settings.
+var config = require('./config');
 
 module.exports = {
 
   development: {
     client: 'postgresql',
-    connection: {
-      database: 'postgres://localhost/postgres',
-      user:     'postgres',
-      password: 'op123'
-    },
+    connection: config.dbLink,
+
+    migrations: {
+      tableName: 'knex_migrations'
+    }
+  },
+
+  production: {
+    client: 'postgresql',
+    connection: config.dbLink,
 
     migrations: {
       tableName: 'knex_migrations'

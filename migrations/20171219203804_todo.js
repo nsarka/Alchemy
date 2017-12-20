@@ -4,7 +4,7 @@
 // date and time
 
 exports.up = function(knex, Promise) {
-	return knex.scheme.createTable('testtable', (table) => {
+	return knex.schema.createTable('testtable', (table) => {
 		table.increments();
 		table.text('sid1').notNullable();
 		table.text('sid2').notNullable();

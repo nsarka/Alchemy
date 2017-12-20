@@ -30,7 +30,7 @@ var server = express();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var path = require('path');
-var pg = require('pg');
+var knex = require('./db/knex');
 
 // Routers in separate files
 var indexRouter = require('./src/routes/indexRouter');
@@ -39,9 +39,6 @@ var userRouter = require('./src/routes/userRouter');
 
 // Server settings grabbed from config
 var port = process.env.PORT || config.productionMode ? config.portProductionMode : config.portDevelMode;
-
-// Connect to database
-
 
 // Set up Handlebars
 server.set('views', path.join(__dirname + '/src/views'));

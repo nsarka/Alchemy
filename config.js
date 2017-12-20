@@ -5,14 +5,15 @@ var fs = require('fs');
 module.exports = {
 	
 	// Set to false if running on localhost, true otherwise
-	productionMode: false,
+	// 
+	productionMode: process.env.NODE_ENV == 'production' || false,
 
 	// Ports for production and development modes
 	portProductionMode: 443,
 	portDevelMode: 80,
 
 	// Link to database
-	dbLink: 'mongodb://localhost/csoptic',
+	dbLink: 'postgres://localhost/Nick',
 	dbUseAuth: false,
 	dbAuth: {
 		user: '',
