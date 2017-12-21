@@ -3,16 +3,40 @@
 
 /* Set gray background color and 100% height */
 .sidenav {
-	padding-top: 20px;
-	background-color: #f1f1f1;
-	height: 100%;
+	width: 100%;
 }
 
-/* On small screens, set height to 'auto' for sidenav and grid */
+.tos {
+	width: 75%;
+}
+
+body {
+	font-family: 'Inconsolata', monospace;
+}
+
+html, body {
+    height:100%;
+}
+
+/* On normal screens */
+@media screen and (min-width: 768px) {
+	.vertical-align {
+		display: -webkit-box;
+		display: flex;
+		-webkit-box-align: center;
+		align-items: center;
+		-webkit-box-pack: center;
+		justify-content: center;
+	}
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid
+   Also fix the stuff on the coinflips jumbotron */
 @media screen and (max-width: 767px) {
 	.sidenav {
 	height: auto;
 	padding: 15px;
 	}
-	.row.content {height:auto;} 
+	.row.content {height:auto;}
+	.vertical-align {text-align: center;}
 }

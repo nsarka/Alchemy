@@ -13,15 +13,24 @@ router.use('/', function timeLog(req, res, next) {
 router.route('/')
 
 	.get(function(req, res) {
-		res.render('index', {
-			title: 'Home',
-			msg: 'Hello Handlebars'
-		});
+		res.redirect('/coinflips');
 	})
 
 	.post(function(req, res) {
 		res.json({ message: 'You POST\'d our homepage' });
 	});
+
+	
+router.get('/coinflips', (req, res) => {
+	res.render('index', {
+		title: 'Home',
+		msg: 'Hello Handlebars'
+	});
+})
+
+router.get('/terms-of-service', function(req, res) {
+	res.render('tos');
+})
 
 
 module.exports = router;

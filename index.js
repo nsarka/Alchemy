@@ -30,7 +30,7 @@ var server = express();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var path = require('path');
-var knex = require('./db/knex');
+var knex = require('./src/db/knex');
 
 // Routers in separate files
 var indexRouter = require('./src/routes/indexRouter');
