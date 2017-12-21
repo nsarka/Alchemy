@@ -20,7 +20,7 @@ router.route('/')
 		res.json({ message: 'You POST\'d our homepage' });
 	});
 
-	
+
 router.get('/coinflips', (req, res) => {
 	res.render('index', {
 		title: 'Home',
@@ -30,6 +30,18 @@ router.get('/coinflips', (req, res) => {
 
 router.get('/terms-of-service', function(req, res) {
 	res.render('tos');
+})
+
+router.get('/faq', function(req, res) {
+	res.render('faq');
+})
+
+router.get('/provably-fair', function(req, res) {
+	res.render('provably');
+})
+
+router.get('/support', function(req, res) {
+	res.render('support');
 })
 
 
