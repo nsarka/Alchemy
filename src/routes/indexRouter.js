@@ -22,26 +22,33 @@ router.route('/')
 
 
 router.get('/coinflips', (req, res) => {
-	res.render('index', {
-		title: 'Home',
-		msg: 'Hello Handlebars'
+	res.render('coinflips', {
+		title: 'Coinflips'
 	});
 })
 
 router.get('/terms-of-service', function(req, res) {
-	res.render('tos');
+	res.render('tos', {
+		title: 'Terms Of Service'
+	});
 })
 
 router.get('/faq', function(req, res) {
-	res.render('faq');
+	res.render('faq', {
+		title: 'FAQ'
+	});
 })
 
 router.get('/provably-fair', function(req, res) {
-	res.render('provably');
+	res.render('provably', {
+		title: 'Provably Fair'
+	});
 })
 
 router.get('/support', function(req, res) {
-	res.render('support');
+	res.render('support', {
+		title: 'Support'
+	});
 })
 
 

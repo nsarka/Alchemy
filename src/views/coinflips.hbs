@@ -1,0 +1,69 @@
+<template id="coinflips-row-template">
+	\{{#each coinflips}}
+		<tr>
+			<td>
+				<img class="coinflip-row-avatar ct-bg" src="\{{p1img}}">
+				<span class="vs">VS</span>
+				<img class="coinflip-row-avatar ct-bg" src="\{{p2img}}">
+			</td>
+			<td>
+				\{{#each this.items}}
+				<img class="coinflip-row-item" src="\{{img}}" title="\{{name}}">
+				\{{/each}}
+			</td>
+			<td>
+				\{{value}}
+			</td>
+			<td>
+				\{{status}}
+			</td>
+			<td>
+				\{{#if status}}
+					<button type="button" class="btn btn-block btn-primary">JOIN</button>
+				\{{else}}
+					<button type="button" class="btn btn-block btn-default">WATCH</button>
+				\{{/if}}
+			</td>
+		</tr>
+	\{{/each}}
+</template>
+
+<div class="text-left">
+	<div class="jumbotron">
+		<div class="container">
+			<div class="row vertical-align">
+				<div class="col-sm-2">
+					<h4>Games</h4>
+					<p>0</p>
+				</div>
+				<div class="col-sm-2">
+					<h4>In Game</h4>
+					<p>$0.00</p>
+				</div>
+				<div class="col-sm-2">
+					<h4>Biggest</h4>
+					<p>$0.00</p>
+				</div>
+				<div class="col-sm-3">
+					<button type="button" class="btn btn-block btn-primary">CREATE GAME</button>
+				</div>
+				<div class="col-sm-3">
+					<button type="button" class="btn btn-block btn-default">MANAGE OFFERS</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Players</th>
+				<th>Items/Skins</th>
+				<th>Value</th>
+				<th>Status</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody id="coinflip-row">
+		</tbody>
+	</table>
+</div>

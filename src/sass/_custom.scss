@@ -18,6 +18,21 @@ html, body {
     height:100%;
 }
 
+.coinflip-row-avatar {
+	width: 40px;
+	height: 40px;
+}
+
+.ct-bg {
+	border: 1px solid #00b3e2;
+	--box-shadow: 0 6px 20px 1px rgba(14, 13, 21, .58);
+}
+
+.coinflip-row-item {
+	width: 60.34px;
+	height: 40px;
+}
+
 /* On normal screens */
 @media screen and (min-width: 768px) {
 	.vertical-align {
