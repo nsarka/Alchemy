@@ -6,7 +6,7 @@ var coinflipGame = require('../games/coinflip.js');
 
 // Middleware that is specific to this router
 router.use('/', function timeLog(req, res, next) {
-	console.log('[*] Coinflips Router accessed at time: ', Date.now());
+	//console.log('[*] Coinflips Router accessed at time: ', Date.now());
 	next();
 });
 
