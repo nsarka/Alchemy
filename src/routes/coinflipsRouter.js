@@ -2,6 +2,7 @@
 
 var express = require('express');
 var router = express.Router();
+var coinflipGame = require('../games/coinflip.js');
 
 // Middleware that is specific to this router
 router.use('/', function timeLog(req, res, next) {
@@ -19,7 +20,7 @@ router.route('/')
 		Returns: (tentative) json object of all of the active coinflips
 	*/
 	.get(function(req, res) {
-		res.json({ message: 'GET www.csoptic.com/api/coinflips : Gets all active coinflips' });
+		res.json(coinflipGame.getFlips());
 	})
 
 	/*
@@ -30,7 +31,11 @@ router.route('/')
 		Returns: (tentative) id of created coinflip
 	*/
 	.post(function(req, res) {
-		res.json({ message: 'POST www.csoptic.com/api/coinflips : Creates a coinflip' });
+		var id = coinflipGame.createFlip('test', 100.0);
+		res.json({
+			message: 'Created a new coinflip!',
+			id: id
+		});
 	});
 
 // csoptic.com/api/coinflips/123456
@@ -43,7 +48,15 @@ router.route('/:coinflip_id')
 		Returns: (tentative) Json object with the details of the coinflip
 	*/
 	.get(function(req, res) {
-		res.json({ message: 'GET www.csoptic.com/api/coinflips/' + req.params.coinflip_id + ' : Gets coinflip #' + req.params.coinflip_id + ' if it exists'});
+		var flip = coinflipGame.getFlip(req.params.coinflip_id);
+
+		if(flip != -1) {
+			res.json(flip);
+		} else {
+			res.json({
+				err: 'That flip # does not exist'
+			});
+		}
 	})
 
 	/*
@@ -54,7 +67,7 @@ router.route('/:coinflip_id')
 		Returns: Success or failure message
 	*/
 	.put(function(req, res) {
-		res.json({ message: 'PUT www.csoptic.com/api/coinflips/' + req.params.coinflip_id + ' : Updates coinflip #' + req.params.coinflip_id + ' if it exists'});
+		res.json({});
 	})
 
 	/*

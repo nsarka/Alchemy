@@ -64,10 +64,10 @@ server.use(express.static(__dirname + '/public'));
 // Create http(s) server & run
 if(config.productionMode) {
     httpHandler.createServer(config.sslOptions, server).listen(port, function() {
-        console.log('[!] Server Started in Production Mode On Port %d', port);
+        console.log('[*] Server Started in Production Mode On Port %d', port);
     });
 } else {
     httpHandler.createServer(server).listen(port, function() {
-        console.log('[!] Server Started in Development Mode On Port %d', port);
+        console.log('[*] Server Started in Development Mode On Port %d', port);
     });
 }
