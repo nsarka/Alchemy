@@ -17,6 +17,5 @@ setInterval(function() {
 				alert("Request: "+JSON.stringify(request));
 			}
 		});
-	});
-}, 2000);
-
+	}, 2000);
+});
