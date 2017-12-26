@@ -9,10 +9,12 @@
 
 // Returns the index in coinflips array that the coinflip specified by id is found
 function findFlipByID(id) {
-	if(coinflipGame.idToIndexMap.has(id)) {
-		return coinflipGame.coinflips[coinflipGame.idToIndexMap.get(id)];
+	var integerID = parseInt(id);
+
+	if(coinflipGame.idToIndexMap.has(integerID)) {
+		return coinflipGame.coinflips[coinflipGame.idToIndexMap.get(integerID)];
 	} else {
-		console.log('[!] Invalid id: ' + id);
+		console.log('[!] Invalid id: ' + integerID);
 		return -1;
 	}
 }
@@ -20,14 +22,16 @@ function findFlipByID(id) {
 // Finds the next ID to use
 // e.g. If the last coinflip that was made was #7999, return 8000
 function findNextFlipID() {
-	if(coinflipGame.coinflips.length > 0) {
-		// If we have coinflips already, we can assume the last one is
-		// the highest id because when we add them we add them to the end with .push()
-		return coinflipGame.coinflips[coinflipGame.coinflips.length - 1].id + 1;
+	if(coinflipGame.lastID > 0) {
+		return ++coinflipGame.lastID;
 	} else {
-		// Query database to get the highest ID and return that number + 1
+		// 1. Query database to get the highest ID, set var x to that number
+		// 2. Increment x
+		// 3. Set coinflipGame.lastID to x
+		// 4. return coinflipGame.lastID
 		// TODO: Implement this. For now zero is ok
-		return 0;
+		coinflipGame.lastID = 1
+		return 1;
 	}
 }
 
@@ -40,6 +44,12 @@ var coinflipGame = {
 	// May be inefficient for when there's only one or two coinflips at once,
 	// but as we scale upwards this may boost performance
 	idToIndexMap: new Map(),
+
+	// Keeps track of what the next flip id should be.
+	// Dont read from this, use findNextFlipID() always 
+	// because it handles incrementing and the case 
+	// that this isnt set (left at -1)
+	lastID: -1,
 
 	// Get all flips
 	getFlips () {
@@ -62,7 +72,7 @@ var coinflipGame = {
 		});
 
 		this.idToIndexMap.set(id, this.coinflips.length - 1);
-		
+
 		return id;
 	},
 
