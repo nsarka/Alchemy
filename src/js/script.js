@@ -1,6 +1,11 @@
 $(function() {
 
+$('#mcs').mCustomScrollbar({
+	theme:"dark"
+});
+
 setInterval(function() {
+
 		$.ajax({
 			url : '/api/coinflips',
 			type : 'GET',

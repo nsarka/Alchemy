@@ -35,7 +35,7 @@ router.route('/')
 		Authentication: User level. Need to be logged in with Steam to use this route
 		Returns: (tentative) id of created coinflip
 	*/
-	.post(function(req, res) {
+	.post(ensureAuthenticated, function(req, res) {
 		var id = coinflipGame.createFlip('test', 100.0);
 		res.json({
 			message: 'Created a new coinflip!',

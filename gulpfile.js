@@ -58,6 +58,18 @@ gulp.task('copyHandlebarsJS', function(){
       .pipe(gulp.dest('public/js/'));
 })
 
+// Copy mCustomScrollbar
+gulp.task('copyMCustomScrollbarJS', function(){
+  gulp.src('src/js/mcs.js')
+      .pipe(gulp.dest('public/js/'));
+})
+
+// Copy mCustomScrollbar
+gulp.task('copyMCustomScrollbarCSS', function(){
+  gulp.src('src/css/mcs.css')
+      .pipe(gulp.dest('public/css/'));
+})
+
 // Optimize Images
 gulp.task('imageMin', () =>
 	gulp.src('src/img/*')
@@ -80,13 +92,13 @@ gulp.task('sass', function(){
 // Scripts
 gulp.task('scripts', function(){
   // Minify and copy
-  gulp.src('src/js/*')
+  gulp.src('src/js/script.js')
       .pipe(concat('script.js'))
       .pipe(uglify())
       .pipe(gulp.dest('public/js'));
 });
 
-gulp.task('default', ['copyHtml', 'copyIcons', 'copyIoniconFonts', 'copyBootstrapJS', 'copyBootstrapFonts', 'copyjQueryJS', 'copyHandlebarsJS', 'imageMin', 'sass', 'scripts']);
+gulp.task('default', ['copyHtml', 'copyIcons', 'copyIoniconFonts', 'copyBootstrapJS', 'copyBootstrapFonts', 'copyjQueryJS', 'copyHandlebarsJS', 'copyMCustomScrollbarCSS', 'copyMCustomScrollbarJS', 'imageMin', 'sass', 'scripts']);
 
 gulp.task('watch', function(){
   gulp.watch('src/js/*.js', ['scripts']);

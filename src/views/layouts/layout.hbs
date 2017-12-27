@@ -8,6 +8,7 @@
 		<title>CsOptic | {{ title }}</title>
 		
 		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link href="css/mcs.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
     </head>
 
@@ -98,7 +99,12 @@
 						<p>PROMOSPACE</p>
 					</div>
 					<div class="well">
-						<p>CHAT</p>
+						<div id="mcs">
+						</div>
+						<div id="typeBox">
+							<input id="textInput" type="text" class="form-control" placeholder="{{#if user}}Say Hello!{{else}}Log in to chat{{/if}}">
+							<button id="sendButton" type="submit" class="btn btn-block btn-primary">Send</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -109,8 +115,7 @@
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/handlebars.min.js"></script>
 		<link href="css/ionicons.min.css" rel="stylesheet">
-
-		<!-- core resources -->
 		<script src="js/script.js"></script>
+		<script src="js/mcs.js"></script>
     </body>
 </html>
