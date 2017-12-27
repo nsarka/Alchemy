@@ -26,11 +26,14 @@ if(config.productionMode) {
 // Everything else
 var express = require('express');
 var hbs = require('express-handlebars');
+var session = require('express-session');
 var server = express();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var path = require('path');
 var knex = require('./src/db/knex');
+var passport = require('passport');
+var steamStrategy = require('passport-steam').Strategy;
 
 // Routers in separate files
 var indexRouter = require('./src/routes/indexRouter');
@@ -52,6 +55,30 @@ if(config.productionMode) {
 server.use(morgan(config.productionMode ? 'short' : 'dev'));
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
+
+// Passport serialize to make sure session doesn't end across pages (if I understand this correctly)
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+    done(null, obj);
+});
+
+// Set up Passport for authentication
+passport.use(new steamStrategy(config.steamStrategyInfo,
+    function(identifier, profile, done) {
+        process.nextTick(function () {
+            profile.identifier = identifier;
+            return done(null, profile);
+        });
+    }
+));
+
+// Passport's middleware
+server.use(session(config.sessionInfo));
+server.use(passport.initialize());
+server.use(passport.session());
 
 // Set server to use routes
 server.use('/api/coinflips', coinflipsRouter);

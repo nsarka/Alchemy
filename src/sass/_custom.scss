@@ -28,6 +28,22 @@ html, body {
 	--box-shadow: 0 6px 20px 1px rgba(14, 13, 21, .58);
 }
 
+.avatar {
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	position: relative;
+	top: -10px;
+	float: left;
+	left: -5px;
+}
+
+.sits {
+	position: relative;
+	top: -3px;
+	float: right;
+}
+
 .coinflip-row-item {
 	width: 60.34px;
 	height: 40px;

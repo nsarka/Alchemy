@@ -6,9 +6,14 @@ var coinflipGame = require('../games/coinflip.js');
 
 // Middleware that is specific to this router
 router.use('/', function timeLog(req, res, next) {
-	//console.log('[*] Coinflips Router accessed at time: ', Date.now());
 	next();
 });
+
+// Helper functions
+function ensureAuthenticated(req, res, next) {
+	if (req.isAuthenticated()) { return next(); }
+	res.send('Log in to use this');
+}
 
 // csoptic.com/api/coinflips/
 router.route('/')
@@ -66,8 +71,10 @@ router.route('/:coinflip_id')
 		Updates: coinflip_id with passed in info
 		Returns: Success or failure message
 	*/
-	.put(function(req, res) {
-		res.json({});
+	.put(ensureAuthenticated, function(req, res) {
+		res.json({
+			message: 'You are authenticated'
+		});
 	})
 
 	/*
