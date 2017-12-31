@@ -29,7 +29,13 @@ html, body {
 }
 
 #mcs {
-	height: 500px;
+	height: 480px;
+	line-height: 20px;
+	text-align: left;
+}
+
+#chatinput {
+	margin-top: 20px;
 }
 
 .avatar {

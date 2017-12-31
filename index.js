@@ -13,21 +13,36 @@
 
 var config = require('./config');
 
-// Modules that are only used in production
-var httpHandler, helmet;
+// Express
+var express = require('express');
+var app = express();
+
+// Require http or https+helmet depending on mode
+var httpOrHttps, helmet;
 
 if(config.productionMode) {
-    httpHandler = require('https');
+    httpOrHttps = require('https');
     helmet = require('helmet');
 } else {
-    httpHandler = require('http');
+    httpOrHttps = require('http');
 }
 
+// Create http(s) server & run
+var server;
+
+if(config.productionMode) {
+    server = httpOrHttps.createServer(config.sslOptions, app);
+} else {
+    server = httpOrHttps.createServer(app);
+}
+
+// Sockets
+var io = require('socket.io')(server);
+var chat = require('./src/chat/chat')(io);
+
 // Everything else
-var express = require('express');
 var hbs = require('express-handlebars');
 var session = require('express-session');
-var server = express();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var path = require('path');
@@ -44,17 +59,17 @@ var userRouter = require('./src/routes/userRouter');
 var port = process.env.PORT || config.productionMode ? config.portProductionMode : config.portDevelMode;
 
 // Set up Handlebars
-server.set('views', path.join(__dirname + '/src/views'));
-server.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/src/views/layouts'}));
-server.set('view engine', 'hbs');
+app.set('views', path.join(__dirname + '/src/views'));
+app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/src/views/layouts'}));
+app.set('view engine', 'hbs');
 
 // Register body-parser, morgan, and other middleware
 if(config.productionMode) {
-    server.use(helmet());
+    app.use(helmet());
 }
-server.use(morgan(config.productionMode ? 'short' : 'dev'));
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: true }));
+app.use(morgan(config.productionMode ? 'short' : 'dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Passport serialize to make sure session doesn't end across pages (if I understand this correctly)
 passport.serializeUser(function(user, done) {
@@ -76,25 +91,18 @@ passport.use(new steamStrategy(config.steamStrategyInfo,
 ));
 
 // Passport's middleware
-server.use(session(config.sessionInfo));
-server.use(passport.initialize());
-server.use(passport.session());
+app.use(session(config.sessionInfo));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Set server to use routes
-server.use('/api/coinflips', coinflipsRouter);
-server.use('/user', userRouter);
-server.use('/', indexRouter);
+app.use('/api/coinflips', coinflipsRouter);
+app.use('/user', userRouter);
+app.use('/', indexRouter);
 
 // Public directory for site resources, e.g. style.css
-server.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 
-// Create http(s) server & run
-if(config.productionMode) {
-    httpHandler.createServer(config.sslOptions, server).listen(port, function() {
-        console.log('[*] Server Started in Production Mode On Port %d', port);
-    });
-} else {
-    httpHandler.createServer(server).listen(port, function() {
-        console.log('[*] Server Started in Development Mode On Port %d', port);
-    });
-}
+server.listen(port, function() {
+    console.log('[*] Server Started On Port %d', port);
+});

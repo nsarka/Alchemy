@@ -43,35 +43,35 @@ router.get('/login-return',
 router.get('/coinflips', (req, res) => {
 	res.render('coinflips', {
 		title: 'Coinflips',
-		user: req.user != 'undefined' ? req.user : false
+		user: req.user
 	});
 })
 
 router.get('/terms-of-service', function(req, res) {
 	res.render('tos', {
 		title: 'Terms Of Service',
-		user: req.user != 'undefined' ? req.user : false
+		user: req.user
 	});
 })
 
 router.get('/faq', function(req, res) {
 	res.render('faq', {
 		title: 'FAQ',
-		user: req.user != 'undefined' ? req.user : false
+		user: req.user
 	});
 })
 
 router.get('/provably-fair', function(req, res) {
 	res.render('provably', {
 		title: 'Provably Fair',
-		user: req.user != 'undefined' ? req.user : false
+		user: req.user
 	});
 })
 
 router.get('/support', function(req, res) {
 	res.render('support', {
 		title: 'Support',
-		user: req.user != 'undefined' ? req.user : false
+		user: req.user
 	});
 })
 

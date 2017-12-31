@@ -12,7 +12,7 @@ router.use('/', function timeLog(req, res, next) {
 // Helper functions
 function ensureAuthenticated(req, res, next) {
 	if (req.isAuthenticated()) { return next(); }
-	res.send('Log in to use this');
+	res.redirect('/login');
 }
 
 // csoptic.com/api/coinflips/

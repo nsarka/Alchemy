@@ -23,7 +23,8 @@
     "passport": "^0.4.0",
     "passport-steam": "^1.0.8",
     "pg": "^7.4.0",
-    "sass": "^1.0.0-beta.4"
+    "sass": "^1.0.0-beta.4",
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
