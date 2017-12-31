@@ -4,7 +4,7 @@
 
 'use strict'
 
-// Treating it as a queue
+// Treating it like a queue
 var recentChatMessages = []
 
 // Helper functions
@@ -19,13 +19,15 @@ function updateRecent(data) {
 
 exports = module.exports = function(io) {
 	io.sockets.on('connection', function (socket) {
+
+		// All chat socket events here
 		socket.on('chatSend', function (data) {
 			updateRecent(data);
 			io.sockets.emit('chatRcv', data);
 		});
 
-		socket.on('getRecentChatMessages', function (data) {
-			io.sockets.emit('recentChatMessages', recentChatMessages);
+		socket.on('chatRecentReq', function (data) {
+			socket.emit('chatRecentRes', recentChatMessages);
 		});
 	});
 }

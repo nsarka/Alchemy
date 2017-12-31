@@ -2,6 +2,8 @@ $(function() {
 
 	var socket = io();
 
+	socket.emit('chatRecentReq');
+
 	$('#mcs').mCustomScrollbar({
 		theme:"dark"
 	});
@@ -33,23 +35,33 @@ $(function() {
 		}
 	});
 
-	socket.on('chatRcv', function(msg) {
-		$('#mCSB_1_container').append($('<p>').html('<hr>'));
-          $('#mCSB_1_container').append($('<p>').html(msg));
-		$('#mcs').mCustomScrollbar("update");
-		$('#mcs').mCustomScrollbar("scrollTo", "last");
+	socket.on('chatRcv', function(data) {
+		addMsg(data);
+	});
+
+	socket.on('chatRecentRes', function(msgArray) {
+		for(var i = 0; i < msgArray.length; i++) {
+			addMsg(msgArray[i]);
+		}
 	});
 
 	function sendChat() {
 		var msg = $('#btn-input').val();
 		if(msg.length > 0) {
 			socket.emit('chatSend', {
-				name: user.displayName,
-				pic: user.photos[2].value,
+				//name: user.displayName,
+				//pic: user.photos[2].value,
 				msg: msg
 			});
 			$('#btn-input').val('');
 		}
 	};
+
+	function addMsg(data) {
+		$('#mCSB_1_container').append($('<p>').html('<hr>'));
+          $('#mCSB_1_container').append($('<p>').html(data.msg));
+		$('#mcs').mCustomScrollbar("update");
+		$('#mcs').mCustomScrollbar("scrollTo", "last");
+	}
 });
 
