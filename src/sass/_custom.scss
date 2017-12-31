@@ -11,6 +11,12 @@
 	margin-bottom: 7px;
 }
 
+#displayName { 
+	padding: 3px 20px;
+	color: #aaa;
+	font-size: 17px;
+}
+
 .tos {
 	width: 75%;
 }
@@ -37,6 +43,7 @@ html, body {
 	height: 480px;
 	line-height: 20px;
 	text-align: left;
+	word-wrap: break-word;
 }
 
 #chatinput {
@@ -51,6 +58,11 @@ html, body {
 	top: -10px;
 	float: left;
 	left: -5px;
+}
+
+.chatavi {
+	width: 40px;
+	height: 40px;
 }
 
 .sits {

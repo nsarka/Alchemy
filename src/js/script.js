@@ -49,8 +49,6 @@ $(function() {
 		var msg = $('#btn-input').val();
 		if(msg.length > 0) {
 			socket.emit('chatSend', {
-				//name: user.displayName,
-				//pic: user.photos[2].value,
 				msg: msg
 			});
 			$('#btn-input').val('');
@@ -59,7 +57,11 @@ $(function() {
 
 	function addMsg(data) {
 		$('#mCSB_1_container').append($('<p>').html('<hr>'));
-          $('#mCSB_1_container').append($('<p>').html(data.msg));
+		if(typeof data.name !== 'undefined' && typeof data.pic !== 'undefined') {
+			$('#mCSB_1_container').append($('<p>').html('<img src=' + data.pic + ' class="chatavi"/><strong> ' + data.name + '</strong>: ' + data.msg.msg));
+		} else {
+			$('#mCSB_1_container').append($('<p>').html(data.msg));
+		}
 		$('#mcs').mCustomScrollbar("update");
 		$('#mcs').mCustomScrollbar("scrollTo", "last");
 	}

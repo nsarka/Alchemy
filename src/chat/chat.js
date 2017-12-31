@@ -19,14 +19,31 @@ function updateRecent(data) {
 
 exports = module.exports = function(io) {
 	io.sockets.on('connection', function (socket) {
-
 		// All chat socket events here
-		socket.on('chatSend', function (data) {
-			updateRecent(data);
-			io.sockets.emit('chatRcv', data);
+		socket.on('chatSend', function (msg) {
+
+			// Make sure they're logged in before sending any messages to the rest of the users
+			if(	typeof socket.handshake.session.passport !== 'undefined' &&
+				typeof socket.handshake.session.passport.user !== 'undefined' &&
+				typeof socket.handshake.session.passport.user.id !== 'undefined'
+			) {
+
+				// Grab their name and profile picture from the session
+				var data = {
+					msg: msg,
+					name: socket.handshake.session.passport.user.displayName,
+					pic: socket.handshake.session.passport.user.photos[1].value
+				}
+				updateRecent(data);
+				io.sockets.emit('chatRcv', data);
+			} else {
+				socket.emit('chatRcv', {
+					msg: 'Please log in before using the chat.'
+				})
+			}
 		});
 
-		socket.on('chatRecentReq', function (data) {
+		socket.on('chatRecentReq', function () {
 			socket.emit('chatRecentRes', recentChatMessages);
 		});
 	});

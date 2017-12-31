@@ -42,13 +42,14 @@ var chat = require('./src/chat/chat')(io);
 
 // Everything else
 var hbs = require('express-handlebars');
-var session = require('express-session');
+var session = require('express-session')(config.sessionInfo);
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var path = require('path');
 var knex = require('./src/db/knex');
 var passport = require('passport');
 var steamStrategy = require('passport-steam').Strategy;
+var sharedSession = require('express-socket.io-session');
 
 // Routers in separate files
 var indexRouter = require('./src/routes/indexRouter');
@@ -91,9 +92,14 @@ passport.use(new steamStrategy(config.steamStrategyInfo,
 ));
 
 // Passport's middleware
-app.use(session(config.sessionInfo));
+app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Give socket.io access to the session (their display name, profile picture, etc.)
+io.use(sharedSession(session, {
+    autoSave:true
+}));
 
 // Set server to use routes
 app.use('/api/coinflips', coinflipsRouter);
