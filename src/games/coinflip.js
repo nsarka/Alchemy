@@ -5,6 +5,24 @@
 
 'use strict'
 
+// Private variables
+
+// Stores all current coinflip data
+var coinflips = [];
+
+// Keeps track of how to map coinflip id's to the coinflips array
+// May be inefficient for when there's only one or two coinflips at once,
+// but as we scale upwards this may boost performance
+var idToIndexMap = new Map();
+
+// Keeps track of what the next flip id should be.
+// findNextFlipID() handles incrementing this as well
+// as the case that this isnt set (left at -1)
+var lastID = -1;
+
+// Trade bot
+var bot = require('../bot/bot.js');
+
 // Defining helper functions here
 
 // Returns the index in coinflips array that the coinflip specified by id is found
@@ -37,23 +55,9 @@ function findNextFlipID() {
 
 var coinflipGame = {
 
-	// Stores all current coinflip data
-	coinflips: [],
-
-	// Keeps track of how to map coinflip id's to the coinflips array
-	// May be inefficient for when there's only one or two coinflips at once,
-	// but as we scale upwards this may boost performance
-	idToIndexMap: new Map(),
-
-	// Keeps track of what the next flip id should be.
-	// Dont read from this, use findNextFlipID() always 
-	// because it handles incrementing and the case 
-	// that this isnt set (left at -1)
-	lastID: -1,
-
 	// Get all flips
 	getFlips () {
-		return this.coinflips;
+		return coinflips;
 	},
 
 	// Get the flip specified by id
@@ -65,7 +69,7 @@ var coinflipGame = {
 	createFlip (name, value) {
 		var id = findNextFlipID();
 
-		this.coinflips.push({
+		coinflips.push({
 			id: id,
 			p1: {
 				img: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/48/48df68e361072c39abe04f74af20459d0b59c104_full.jpg',
@@ -105,7 +109,7 @@ var coinflipGame = {
 			}
 		});
 
-		this.idToIndexMap.set(id, this.coinflips.length - 1);
+		idToIndexMap.set(id, coinflips.length - 1);
 
 		return id;
 	},

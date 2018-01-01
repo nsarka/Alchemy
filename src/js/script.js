@@ -22,7 +22,8 @@ $(function() {
 				},
 				error : function(request,error)
 				{
-					alert("Request: "+JSON.stringify(request));
+					//alert("Request: "+JSON.stringify(request));
+					alert('The server is offline.');
 				}
 			});
 		}, 2000);

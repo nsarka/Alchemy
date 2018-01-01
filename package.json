@@ -25,7 +25,11 @@
     "passport-steam": "^1.0.8",
     "pg": "^7.4.0",
     "sass": "^1.0.0-beta.4",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "steam-totp": "^2.0.1",
+    "steam-tradeoffer-manager": "^2.9.3",
+    "steam-user": "^3.24.0",
+    "steamcommunity": "^3.34.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

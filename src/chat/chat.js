@@ -1,5 +1,5 @@
 /*
-	chat.js : Handles all socket.io events
+	chat.js : Handles all socket.io events for chat
 */
 
 'use strict'
