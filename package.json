@@ -24,6 +24,7 @@
     "passport": "^0.4.0",
     "passport-steam": "^1.0.8",
     "pg": "^7.4.0",
+    "request": "^2.83.0",
     "sass": "^1.0.0-beta.4",
     "socket.io": "^2.0.4",
     "steam-totp": "^2.0.1",

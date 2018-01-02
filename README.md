@@ -9,4 +9,5 @@ To achieve better scalability and code correctness, rewriting the CsOptic.com we
 2. cd Alchemy
 3. npm install
 4. gulp
-5. node index.js
+5. make polls/bot.json file and put {} inside of it (will add this to gulp later)
+6. node index.js
