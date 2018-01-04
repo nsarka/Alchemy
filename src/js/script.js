@@ -17,11 +17,6 @@ $(function() {
 					document.getElementById('coinflip-row').innerHTML = renderRows({
 						coinflips: data,
 					});
-				},
-				error : function(request,error)
-				{
-					//alert("Request: "+JSON.stringify(request));
-					alert('The server is offline.');
 				}
 			});
 		}, 2000);
@@ -68,7 +63,8 @@ $(function() {
 	$('#profileButton').click({
 			title: 'Profile',
 			body: buildProfileModalBody(),
-			footer: '<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>'
+			footer: '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary" data-dismiss="modal">Update</button>',
+			update: updateProfileModalBody,
 	}, openModal);
 
 	$('#historyButton').click({
@@ -92,18 +88,41 @@ $(function() {
 	function buildProfileModalBody() {
 		var body = '';
 
-		body = body + '<h3>Your Profile</h3>' +
-		'<form><div class="form-group"><label for="tradelinkInput">Trade Link*</label>' + 
-		'<input type="text" class="form-control" id="tradelinkInput" placeholder="Required">' + 
+		body = body + '<h3>Your Profile</h3><br><p>Your trade link can be found <a href="http://steamcommunity.com/id/me/tradeoffers/privacy#trade_offer_access_url" target="_blank">here</a>.</p><br>' +
+		'<form><div class="form-group"><label for="tradeLinkInput">Trade Link*</label>' + 
+		'<input type="text" class="form-control" id="tradeLinkInput" placeholder="Required">' + 
 		'</div><div class="form-group"><label for="emailInput">' + 
 		'Email</label><input type="text" class="form-control" ' + 
 		'id="emailInput" placeholder="Optional"></div>' + 
 		'<div class="form-group"><label for="nameInput">' + 
 		'Name</label><input type="text" class="form-control" ' + 
 		'id="nameInput" placeholder="Optional"></div>' + 
-		'</form>';
+		'</form><p>CsOptic doesnt give away any info, period.</p>';
 
 		return body;
+	}
+
+	function updateProfileModalBody() {
+		var tradeLink, email, name;
+
+		$.ajax({
+			url : '/user',
+			type : 'GET',
+			success : function(data) {       
+				if(typeof data.tradeLink !== 'undefined') {
+					$('#tradeLinkInput').val(data.tradeLink);
+				} else {
+					// TODO: Notify user this is required
+				}
+
+				if(typeof data.email !== 'undefined') { $('#emailInput').val(data.email); }
+				if(typeof data.name !== 'undefined') { $('#nameInput').val(data.name); }
+			},
+			error : function(request, error)
+			{
+				alert('The server is offline.');
+			}
+		});
 	}
 
 	function openModal(event) {
@@ -116,6 +135,11 @@ $(function() {
 			modalBody: event.data.body,
 			modalFooter: event.data.footer
 		});
+
+		// Javascript black magic
+		if(typeof event.data.update !== 'undefined') {
+			event.data.update();
+		}
 
 		$('#largeModal').modal();
 	};

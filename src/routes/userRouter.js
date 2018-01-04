@@ -3,6 +3,8 @@
 var express = require('express');
 var router = express.Router();
 
+var db = require('../db/knex.js');
+
 // Middleware that is specific to this router
 router.use('/', function timeLog(req, res, next) {
 	console.log('[*] User Router accessed at time: ', Date.now());
@@ -19,30 +21,20 @@ router.route('/')
 		Returns: (tentative) Json object of all of the user's info
 	*/
 	.get(function(req, res) {
-		res.json({ message: 'GET www.csoptic.com/user : Gets all of your user info' });
+		// TODO: Query database for this specific steamID and return data
+		res.json({ tradeLink: 'test', email: 'testemail@email.com', name: 'Rick James' });
 	})
 
 	/*
 		Defines the POST user route (POST www.csoptic.com/user)
 		------------------------------------------------------------------------
 		Authentication: User logged in
-		Creates: New user profile
+		Creates or updates user profile in DB
 		Returns: Success or error message
 	*/
 	.post(function(req, res) {
-		res.json({ message: 'POST www.csoptic.com/user : Creates a new user record in the database' });
+		res.json({ message: 'POST www.csoptic.com/user : Creates or updates user profile in the database' });
 	})
-
-	/*
-		Defines the PUT user route (PUT www.csoptic.com/user)
-		------------------------------------------------------------------------
-		Authentication: User logged in
-		Updates: User info with supplied info
-		Returns: Success or error message
-	*/
-	.put(function(req, res) {
-		res.json({ message: 'PUT www.csoptic.com/user : Updates your user info' });
-	});
 
 
 module.exports = router;
