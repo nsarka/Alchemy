@@ -33,7 +33,18 @@ router.route('/')
 		Returns: Success or error message
 	*/
 	.post(function(req, res) {
-		res.json({ message: 'POST www.csoptic.com/user : Creates or updates user profile in the database' });
+		/* 
+			req.body
+			{ 	tradeLink: 'test',
+				email: 'testemail@email.com',
+				name: 'Rick James' 
+			}
+		*/
+
+		res.json({
+			status: 1,
+			message: 'Success!'
+		});
 	})
 
 

@@ -60,13 +60,6 @@ $(function() {
 		$('#mcs').mCustomScrollbar("scrollTo", "last");
 	};
 
-	$('#profileButton').click({
-			title: 'Profile',
-			body: buildProfileModalBody(),
-			footer: '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary" data-dismiss="modal">Update</button>',
-			update: updateProfileModalBody,
-	}, openModal);
-
 	$('#historyButton').click({
 			title: 'History',
 			body: '<p>Your History</p>',
@@ -83,6 +76,13 @@ $(function() {
 			title: 'Manage Offers',
 			body: '<p>Manage Offers</p>',
 			footer: '<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>'
+	}, openModal);
+
+	$('#profileButton').click({
+			title: 'Profile',
+			body: buildProfileModalBody(),
+			footer: '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button type="button" id="updateProfileButton" class="btn btn-primary">Update</button>',
+			update: updateProfileModalBody,
 	}, openModal);
 
 	function buildProfileModalBody() {
@@ -118,10 +118,25 @@ $(function() {
 				if(typeof data.email !== 'undefined') { $('#emailInput').val(data.email); }
 				if(typeof data.name !== 'undefined') { $('#nameInput').val(data.name); }
 			},
-			error : function(request, error)
-			{
+			error : function(request, error) {
 				alert('The server is offline.');
 			}
+		});
+
+		// Event listener must be registered here because #updateProfileButton doesnt exist unless the user opens the profile modal
+		$('#updateProfileButton').click(function() {
+			$.ajax({
+				type: 'POST',
+				url: '/user',
+				data: {
+					tradeLink: $('#tradeLinkInput').val(),
+					email: $('#emailInput').val(),
+					name: $('#nameInput').val()
+				},
+				success: function(data) {
+					
+				}
+			});
 		});
 	}
 
