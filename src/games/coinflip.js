@@ -5,6 +5,9 @@
 
 'use strict'
 
+var db = require('../db/knex.js');
+var bot = require('../bot/bot.js');
+
 // Private variables
 
 // Stores all current coinflip data
@@ -19,9 +22,6 @@ var idToIndexMap = new Map();
 // findNextFlipID() handles incrementing this as well
 // as the case that this isnt set (left at -1)
 var lastID = -1;
-
-// Trade bot
-var bot = require('../bot/bot.js');
 
 // Defining helper functions here
 

@@ -41,7 +41,7 @@ client.on('webSession', function(sessionID, cookies) {
 			return callback(err);
 		}
 		return true;
-	})
+	});
 	community.setCookies(cookies);
 	client.setPersona(SteamUser.Steam.EPersonaState.LookingToTrade, config.bots.bot_1.personaName);
 });

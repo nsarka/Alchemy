@@ -1,8 +1,9 @@
 'use strict'
 
-var express = require('express');
-var router = express.Router();
-var passport = require('passport');
+var express 	= require('express');
+var router 	= express.Router();
+var passport 	= require('passport');
+var db		= require('../db/knex.js');
 
 // Middleware that is specific to this router
 router.use('/', function(req, res, next) {

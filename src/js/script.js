@@ -1,5 +1,4 @@
 $(function() {
-
 	var socket = io();
 
 	socket.emit('chatRecentReq');
@@ -13,11 +12,10 @@ $(function() {
 				url : '/api/coinflips',
 				type : 'GET',
 				success : function(data) {              
-					var d = data;
 					var template = document.getElementById('coinflips-row-template').innerHTML;
 					var renderRows = Handlebars.compile(template);
 					document.getElementById('coinflip-row').innerHTML = renderRows({
-						coinflips: d,
+						coinflips: data,
 					});
 				},
 				error : function(request,error)
@@ -65,6 +63,60 @@ $(function() {
 		}
 		$('#mcs').mCustomScrollbar("update");
 		$('#mcs').mCustomScrollbar("scrollTo", "last");
-	}
-});
+	};
 
+	$('#profileButton').click({
+			title: 'Profile',
+			body: buildProfileModalBody(),
+			footer: '<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>'
+	}, openModal);
+
+	$('#historyButton').click({
+			title: 'History',
+			body: '<p>Your History</p>',
+			footer: '<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>'
+	}, openModal);
+
+	$('#cgButton').click({
+			title: 'Create Coinflip',
+			body: '<p>Create Coinflip</p>',
+			footer: '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary" data-dismiss="modal">Create</button>'
+	}, openModal);
+
+	$('#moButton').click({
+			title: 'Manage Offers',
+			body: '<p>Manage Offers</p>',
+			footer: '<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>'
+	}, openModal);
+
+	function buildProfileModalBody() {
+		var body = '';
+
+		body = body + '<h3>Your Profile</h3>' +
+		'<form><div class="form-group"><label for="tradelinkInput">Trade Link*</label>' + 
+		'<input type="text" class="form-control" id="tradelinkInput" placeholder="Required">' + 
+		'</div><div class="form-group"><label for="emailInput">' + 
+		'Email</label><input type="text" class="form-control" ' + 
+		'id="emailInput" placeholder="Optional"></div>' + 
+		'<div class="form-group"><label for="nameInput">' + 
+		'Name</label><input type="text" class="form-control" ' + 
+		'id="nameInput" placeholder="Optional"></div>' + 
+		'</form>';
+
+		return body;
+	}
+
+	function openModal(event) {
+
+		var template = document.getElementById('modalTemplate').innerHTML;
+		var compiledTemplate = Handlebars.compile(template);
+
+		document.getElementById('modalContent').innerHTML = compiledTemplate({
+			modalTitle: event.data.title,
+			modalBody: event.data.body,
+			modalFooter: event.data.footer
+		});
+
+		$('#largeModal').modal();
+	};
+});
