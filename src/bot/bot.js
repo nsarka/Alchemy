@@ -59,6 +59,25 @@ client.on('sessionExpired', function(err) {
 
 // Public members
 var bot = {
+	sendTradeOffer() {
+
+	},
+
+	getInventory() {
+
+	},
+
+	validateOffer() {
+
+	},
+
+	getPrices() {
+
+	},
+
+	botConfirm() {
+
+	}
 
 };
 

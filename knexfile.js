@@ -2,22 +2,29 @@ var config = require('./config');
 
 module.exports = {
 
-  development: {
-    client: 'postgresql',
-    connection: config.dbLink,
+    development: {
+        client: 'pg',
+        connection: config.dbLink,
 
-    migrations: {
-      tableName: 'knex_migrations'
+        migrations: {
+            directory: __dirname + '/db/migrations'
+        },
+
+        seeds: {
+            directory: __dirname + '/db/seeds'
+        }
+    },
+
+    production: {
+        client: 'pg',
+        connection: config.dbLink,
+
+        migrations: {
+            directory: __dirname + '/db/migrations'
+        },
+
+        seeds: {
+            directory: __dirname + '/db/seeds'
+        }
     }
-  },
-
-  production: {
-    client: 'postgresql',
-    connection: config.dbLink,
-
-    migrations: {
-      tableName: 'knex_migrations'
-    }
-  }
-
 };

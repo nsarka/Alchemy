@@ -7,19 +7,13 @@ $(function() {
 		theme:"dark"
 	});
 
-	setInterval(function() {
-			$.ajax({
-				url : '/api/coinflips',
-				type : 'GET',
-				success : function(data) {              
-					var template = document.getElementById('coinflips-row-template').innerHTML;
-					var renderRows = Handlebars.compile(template);
-					document.getElementById('coinflip-row').innerHTML = renderRows({
-						coinflips: data,
-					});
-				}
-			});
-		}, 2000);
+	$.ajax({
+		url : '/api/coinflips',
+		type : 'GET',
+		success : function(data) {
+			// TODO: create addCoinflipRow() and use it here in a loop over all rows in data
+		}
+	});
 
 
 	$('#btn-chat').click(sendChat);
