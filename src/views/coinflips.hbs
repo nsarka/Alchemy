@@ -1,33 +1,3 @@
-<template id="coinflips-row-template">
-	\{{#each coinflips}}
-		<tr>
-			<td>
-				<img class="coinflip-row-avatar ct-bg" src="\{{p1img}}">
-				<span class="vs">VS</span>
-				<img class="coinflip-row-avatar ct-bg" src="\{{p2img}}">
-			</td>
-			<td>
-				\{{#each this.items}}
-				<img class="coinflip-row-item" src="\{{img}}" title="\{{name}}">
-				\{{/each}}
-			</td>
-			<td>
-				\{{value}}
-			</td>
-			<td>
-				\{{status}}
-			</td>
-			<td>
-				\{{#if status}}
-					<button type="button" class="btn btn-block btn-primary">JOIN</button>
-				\{{else}}
-					<button type="button" class="btn btn-block btn-default">WATCH</button>
-				\{{/if}}
-			</td>
-		</tr>
-	\{{/each}}
-</template>
-
 <div class="text-left">
 	<div class="jumbotron">
 		<div class="container">
@@ -63,7 +33,7 @@
 				<th>Action</th>
 			</tr>
 		</thead>
-		<tbody id="coinflip-row">
+		<tbody id="coinflip-tbody">
 		</tbody>
 	</table>
 </div>

@@ -12,6 +12,9 @@ $(function() {
 		type : 'GET',
 		success : function(data) {
 			// TODO: create addCoinflipRow() and use it here in a loop over all rows in data
+			for(var i = 0; i < data.length; i++) {
+				addCoinflipRow(data[i]);
+			}
 		}
 	});
 
@@ -54,6 +57,48 @@ $(function() {
 		$('#mcs').mCustomScrollbar("scrollTo", "last");
 	};
 
+	function addCoinflipRow(data) {
+		var row = '';
+
+		var rowItems = '';
+		for(var j = 0; j < data.p1.items.length; j++) {
+			rowItems += '<img class="coinflip-row-item" src="' + data.p1.items[j].img + '" title="' + data.p1.items[j].name + '">';
+		}
+		for(var j = 0; j < data.p2.items.length; j++) {
+			rowItems += '<img class="coinflip-row-item" src="' + data.p2.items[j].img + '" title="' + data.p2.items[j].name + '">';
+		}
+
+		var statusText = '<button type="button" class="btn btn-block btn-primary">';
+		if(data.status == 1) {
+			statusText += 'JOIN';
+		} else {
+			statusText += 'WATCH';
+		}
+		statusText += '</button>';
+
+		row += "<tr id='" +
+		data.id +
+		"'><td><img class='coinflip-row-avatar ct-bg' src='" +
+		data.p1.img +
+		"'><span class='vs'>VS</span><img class='coinflip-row-avatar ct-bg' src='" +
+		data.p2.img +
+		"'></td><td>" +
+		rowItems +
+		"</td><td>" +
+		(data.p1.value + data.p2.value) +
+		"</td><td>" +
+		data.status +
+		"</td><td>" +
+		statusText +
+		"</td></tr>";
+
+		$('#coinflip-tbody').append(row);
+	}
+
+	function deleteCoinflipRow(id) {
+		$('#' + id).remove();
+	}
+
 	$('#historyButton').click({
 			title: 'History',
 			body: '<p>Your History</p>',
@@ -63,7 +108,8 @@ $(function() {
 	$('#cgButton').click({
 			title: 'Create Coinflip',
 			body: '<p>Create Coinflip</p>',
-			footer: '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary" data-dismiss="modal">Create</button>'
+			footer: '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button id="createcgButton" type="button" class="btn btn-primary" data-dismiss="modal">Create</button>',
+			update: updatecgModalBody
 	}, openModal);
 
 	$('#moButton').click({
@@ -127,6 +173,20 @@ $(function() {
 					email: $('#emailInput').val(),
 					name: $('#nameInput').val()
 				},
+				success: function(data) {
+					
+				}
+			});
+		});
+	}
+
+	function updatecgModalBody() {
+		// Event listener must be registered here because #updateProfileButton doesnt exist unless the user opens the profile modal
+		$('#createcgButton').click(function() {
+			$.ajax({
+				type: 'POST',
+				url: '/api/coinflips',
+				data: {},
 				success: function(data) {
 					
 				}

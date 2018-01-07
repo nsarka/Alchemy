@@ -71,6 +71,7 @@ var coinflipGame = {
 
 		coinflips.push({
 			id: id,
+			status: 1,
 			p1: {
 				img: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/48/48df68e361072c39abe04f74af20459d0b59c104_full.jpg',
 				items: [
